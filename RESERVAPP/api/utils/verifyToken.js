@@ -14,8 +14,18 @@ export const verifyToken = (req, res, next) =>{
 }
 
 export const verifyUser = (req, res, next) =>{
-    verifyToken(req, res,() =>{
+    verifyToken(req, res,next,() =>{
         if(req.user.id === req.params.id || req.user.isAdmin){
+            next();
+        }else{
+            return next(createError(403,"No esta autorizado para realizar esta solicitud!!"));
+        }
+    });
+}
+
+export const verifyAdmin = (req, res, next) =>{
+    verifyToken(req, res, next,() =>{
+        if(req.user.isAdmin){
             next();
         }else{
             return next(createError(403,"No esta autorizado para realizar esta solicitud!!"));
