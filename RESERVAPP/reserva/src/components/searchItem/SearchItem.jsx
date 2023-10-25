@@ -1,4 +1,5 @@
 import "./searchItem.css";
+import { Link } from "react-router-dom"
 
 const SearchItem = ({item}) => {
   return (
