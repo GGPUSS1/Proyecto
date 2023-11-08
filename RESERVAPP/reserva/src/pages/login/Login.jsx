@@ -1,9 +1,9 @@
-import { useContext, useState } from "react";
+import { useContext, useState } from 'react'
 import "./login.css";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from '../../context/AuthContext';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import toast, {Toaster} from "react-hot-toast";
+import toast,{Toaster} from "react-hot-toast";
 
 const Login = () => {
     const [credencials,setCredentians] = useState({
@@ -11,77 +11,87 @@ const Login = () => {
         password:undefined,
     });
 
-    const {user, loading, error, dispatch} = useContext(AuthContext)
+    const {loading,error,dispatch} = useContext(AuthContext);  
+
     const navigate = useNavigate()
 
     const handleChange = (e) => {
-        setCredentians((prev) =>({...prev,[e.target.id]:e.target.value}));
+        setCredentians((prev) => ({...prev, [e.target.id]:e.target.value}))
     }
-    const login = async (e) => {
+
+    const login = async (e) =>{
         e.preventDefault();
-        
         dispatch({type:"LOGIN_START"});
-        try{
+        try {
             toast.loading("Espere..")
             const res = await axios.post("/auth/login",credencials);
             dispatch({type:"LOGIN_SUCCESS",payload:res.data});
+            
             toast.dismiss()
-            toast.success("Bienvenid@ al sistema",{
+            toast.success("Bienvenid@ al sistema",
+            {
                 duration: 2000,
                 position: 'top-right'
             })
-            toast.loading("Cargando Propiedades..")
-            
+            toast.loading("Cargando propiedades..")
             setTimeout(()=>{
                 toast.dismiss()
                 navigate("/")
             },1500)
-        }catch(err){
+
+        } catch (error) {
             toast.dismiss()
-            toast.error(`Error de acceso: ${err.response.data.message}`,
+            toast.error(`Error de acceso:${error.response.data.message}`,
             {
                 duration: 3000,
                 position: 'top-right'
-            })
-            dispatch({type:"LOGIN_FAILURE",payload:err.response.data})
+            }
+            )
+            dispatch({type:"LOGIN_FAILURE",payload:error.response.data});
         }
     }
 
-    console.log(user)
+    return(
 
-    return (
-        <div className="container-login">
+        <div className="container-Login">
             <div className="main">
-                <input type="checkbox" id="label" arias-hidden="true"/>
-            <div className="login">
-                <label for="label">Iniciar Sesion</label>
-                    <input type="text" placeholder="Nombre de usuario" id="username" className="lInput" 
-                    onChange={handleChange}
-                    />
-                    <input type="password" placeholder="Contraseña" id="password" className="lInput" 
-                    onChange={handleChange}
-                    />
-                    <button className="lButton" onClick={login}>Ingresar</button>
-                    {error && <span>{error.message}</span>}
-            </div>
-            <div className="register">
-            <label for="label">Registro</label>
+                    <input type="checkbox" id="label" arias-hidden="true" />
+                <div className='login'>
+                    <label htmlFor="label">Iniciar sesion</label>
+                        <input type="text" placeholder='Nombre de usuario' id="username" className='lInput'
+                        onKeyUp={(e)=> e.key == "Enter"? login(e):""}
+                        onChange={handleChange}
+                        />
+
+                        <input type="password" placeholder='Contraseña' id="password" className='lInput'
+                        onKeyUp={(e)=> e.key == "Enter"? login(e):""}
+                        onChange={handleChange}
+                        />
+
+                        <button className='lButton' onClick={login}>Ingresar</button>
+                        {error && <span>{error.message}</span>}
                     
-                    <input type="text" placeholder="Nombre de usuario" id="username" className="lInput" 
-                    onChange={handleChange}
-                    />
-                    <input type="password" placeholder="Contraseña" id="password" className="lInput" 
-                    onChange={handleChange}
-                    />
-                    <button className="lButton" onClick={login}>registrar</button>
-                    {error && <span>{error.message}</span>}
-                
+                </div>
+
+                <div className='register'>
+                    <label htmlFor="label">Registro</label>
+                        <input type="text" placeholder='Nombre de usuario' id="username" className='lInput'
+                        onChange={handleChange}
+                        />
+
+                        <input type="password" placeholder='Contraseña' id="password" className='lInput'
+                        onChange={handleChange}
+                        />
+
+                        <button className='lButton' onClick={login}>Registrar</button>
+                        {error && <span>{error.message}</span>}
+                    
+                </div>
+
             </div>
+            <Toaster/>
         </div>
-        <Toaster/>
-        </div>
-    
     )
 }
 
-export default Login
+export default Login;

@@ -5,20 +5,20 @@ const Footer = () => {
     <div className="footer">
       <div className="fLists">
         <ul className="fList">
-          <li className="fListItem">Countries</li>
-          <li className="fListItem">Regions</li>
-          <li className="fListItem">Cities</li>
-          <li className="fListItem">Districts</li>
-          <li className="fListItem">Airports</li>
-          <li className="fListItem">Hotels</li>
+          <li className="fListItem">País</li>
+          <li className="fListItem">Regiones</li>
+          <li className="fListItem">Ciudades</li>
+          <li className="fListItem">Distritos</li>
+          <li className="fListItem">Vuelos</li>
+          <li className="fListItem">Alojamiento</li>
         </ul>
         <ul className="fList">
-          <li className="fListItem">Homes </li>
-          <li className="fListItem">Apartments </li>
-          <li className="fListItem">Resorts </li>
+          <li className="fListItem">Cuartos</li>
+          <li className="fListItem">Apartamentos </li>
+          <li className="fListItem">Resorts</li>
           <li className="fListItem">Villas</li>
-          <li className="fListItem">Hostels</li>
-          <li className="fListItem">Guest houses</li>
+          <li className="fListItem">Hoteles</li>
+          <li className="fListItem">Consultas Habitaciones</li>
         </ul>
         <ul className="fList">
           <li className="fListItem">Unique places to stay </li>
