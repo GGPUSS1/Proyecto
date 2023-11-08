@@ -175,7 +175,6 @@ const Hotel = () => {
         <Footer />
       </div>
       )}
-
       {openModal && <Reserve setOpen={setOpenModal} hotelId={hId} />}
     </div>
   );
